@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Surya Cinemas</title>
+</head>
+<style>
+body{
+        background-image:url('https://wallpaperaccess.com/full/3302873.jpg');
+        background-repeat: no-repeat;
+        background-position:center;
+        background-size: 100%;
+        margin: 0;
+}
+.logo{
+    margin: 0;
+    margin-bottom: 50px;
+    padding: .5em;
+    font-size:2em;
+    min-width:100px;
+    color:white;
+    font-family: 'Poppins',sans-serif;
+    text-align: center;
+    background-color: black;
+}
+.userinfo{
+    align-items: center;
+    justify-content: center;
+    margin:auto;
+    border: 1px solid white;
+    padding:10px;
+}
+p{
+    color:white;
+}
+label{
+    color: white;
+    display: inline-block;
+    float: left;
+    clear: left;
+    width: 80px;
+    text-align:right;
+}
+
+input{
+    display: inline-block;
+    float:left;
+}
+
+.container{
+    text-align: center;
+}
+form{
+    width: 400px;
+    padding: .5em;
+    align-items: center;
+    margin: 0;
+    margin-top: 20px;
+    background-color: rgba(95, 93, 93, 0.773);
+    border-radius: 10px;
+}
+table{
+    color:white;
+    align-items: center;
+    justify-content: center;
+    margin:auto;
+}
+.click{
+    color: rgb(235, 218, 66);
+}
+div .btn{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    row-gap: 10px;
+    height: 10%;
+    width: 18%;
+    gap: 10px;
+    margin-top: 10%;
+    border-radius: .5em;
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+
+}
+footer{
+
+    height: 30%;
+    text-align: center;
+    margin-top:118px ;
+    color:white;
+    background-color:black;
+    padding:.25em 1em ;
+}
+</style>
+<body>
+
+
+    <a><h1 class = "logo">SURYA CINEMAS</h1></a>
+    <center><p><b>You can search by Location or by Movie</b><br>
+    Once you have found the perfect watch <b>input all the values and select the Book button</b> <br>
+    Thanks for using our product...</p><br><br></center>
+<form action="" class="userinfo" method="post">
+    <label>Location : &nbsp</label><input type="text" name="location" ><br><br>
+    <label>Movie : &nbsp</label> <input type="text" name="movie"><br><br>
+    <label>Theatre: &nbsp </label><input type="text" name="theatre"><br><br>
+    <label>Screen :&nbsp </label><input type="text" name="screen"><br><br>
+    <label>Showtime  : &nbsp</label><input type="text" name="showtime"><br><br>
+    <label>Seat  : &nbsp</label><input type="text" name="seat"><br><br>
+    <div class = "container">
+    <input type="submit" class="btn" name="Search" value="Search"></div>
+    {% if status %}
+    <div class = "container">
+    <input type="submit" class="btn" name="Book" value="Book">
+    </div>
+    {% endif %}
+</form>
+
+<br>
+<br>
+<br>
+
+{% if output_data %}
+<table>
+    <thead>
+    <tr>
+        <th>Movie</th>
+        <th>Theatre</th>
+        <th>Location</th>
+        <th>Showtime</th>
+        <th>Screen</th>
+        <th>Available Seats</th>
+    </tr>
+    </thead>
+    <tbody>
+        {% for row in output_data %}
+            <tr>
+                <td>{{row["movie_name"]}}</td>
+                <td>{{row["theatre_name"]}}</td>
+                <td>{{row["location"]}}</td>
+                <td>{{row["showtime"]}}</td>
+                <td>{{row["screen"]}}</td>
+                <td>{{row["available_seats"]}}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+
+<br><br><br><br>
+<center>
+{% if booking_status == 1 %}
+    <p><b>Seat is Available...</b></p>
+    <p>Now, You have to Pay Rs.100 to Book Your Ticket...</p>
+    <p>To Pay <a href="{{url_for('static',filename='ticket.html') }}" class="click">Cilck here</a></p>
+{% elif booking_status == 2 %}
+    <p>Booking is Unsuccessful!!!</p>
+{% endif %}
+</center>
+
+<footer>
+    <div class="">&#169 copyright SURYA CINEMAS</div>
+</footer>
+</body>
+</html>
